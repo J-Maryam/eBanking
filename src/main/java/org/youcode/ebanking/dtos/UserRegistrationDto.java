@@ -1,4 +1,14 @@
 package org.youcode.ebanking.dtos;
 
-public record UserRegistrationDto() {
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+
+public record UserRegistrationDto(
+
+        @NotBlank
+        @Column(unique = true)
+        String username,
+        @NotBlank
+        String password
+) {
 }
