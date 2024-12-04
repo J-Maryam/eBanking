@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.youcode.ebanking.models.User;
+import org.youcode.ebanking.models.AppUser;
 import org.youcode.ebanking.repositories.UserRepository;
 
 
@@ -18,10 +18,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
+        AppUser appUser = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                AuthorityUtils.createAuthorityList(user.getRole()));
+                appUser.getUsername(),
+                appUser.getPassword(),
+                AuthorityUtils.createAuthorityList(appUser.getRole().toString()));
     }
 }

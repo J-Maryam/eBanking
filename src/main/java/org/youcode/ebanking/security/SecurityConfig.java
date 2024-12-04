@@ -30,10 +30,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/notices", "/api/contact", "/api/register").permitAll()
 
                         .requestMatchers("/api/users/**")
-                        .hasRole("ROLE_USER")
+                        .hasRole("USER")
 
                         .requestMatchers("/api/admins/**")
-                        .hasRole("ROLE_ADMIN")
+                        .hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                 )
