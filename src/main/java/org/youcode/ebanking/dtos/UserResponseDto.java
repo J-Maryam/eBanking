@@ -4,6 +4,6 @@ public record UserResponseDto(
         Long id,
         String username,
         String password,
-        String role
+        RoleDTO role
 ) {
 }

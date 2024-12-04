@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,4 +24,7 @@ public class Role {
     @NotBlank
     @Column(unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "role")
+    private List<AppUser> users = new ArrayList<>();
 }

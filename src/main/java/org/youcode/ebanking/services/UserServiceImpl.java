@@ -25,10 +25,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto registerUser(UserRegistrationDto dto) {
         if (userRepository.findByUsername(dto.username()).isPresent()) {
-            throw new EntityExistsException("Username '" + dto.username() + "' already exists");
+            throw new RuntimeException("Username '" + dto.username() + "' already exists");
         }
 
-        Role role = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new EntityExistsException("Role 'ROLE_USER' not found"));
+        Role role = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new RuntimeException("Role 'ROLE_USER' not found"));
 
         AppUser appUser = userMapper.toEntity(dto);
         appUser.setRole(role);
