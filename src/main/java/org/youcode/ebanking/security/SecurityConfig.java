@@ -43,7 +43,7 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/login", "/api/notices", "/api/contact", "/api/register").permitAll()
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
-                        .requestMatchers("/api/my_profile/**").hasRole("USER")
+                        .requestMatchers("/api/account/**").hasRole("USER")
                         .anyRequest().authenticated())
 
                 .exceptionHandling(handling -> handling
