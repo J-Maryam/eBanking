@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.youcode.ebanking.dtos.RoleDTO;
 import org.youcode.ebanking.dtos.UserRegistrationDto;
 import org.youcode.ebanking.dtos.UserResponseDto;
 import org.youcode.ebanking.exceptions.UsernameAlreadyExistsException;
@@ -57,4 +58,26 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.toDTO(user);
     }
+
+    @Override
+    public void deleteUserByUsername(String username) {
+        AppUser user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User with username '" + username + "' not found"));
+        userRepository.delete(user);
+    }
+
+    @Override
+    public UserResponseDto updateUserRole(String username, RoleDTO roleDTO) {
+        AppUser user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' not found"));
+
+        Role newRole = roleRepository.findByName(roleDTO.name())
+                .orElseThrow(() -> new RuntimeException("Role '" + roleDTO.name() + "' not found"));
+
+        user.setRole(newRole);
+        AppUser updatedUser = userRepository.save(user);
+
+        return userMapper.toDTO(updatedUser);
+    }
+
 }

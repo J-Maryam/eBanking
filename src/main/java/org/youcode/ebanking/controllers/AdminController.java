@@ -3,10 +3,8 @@ package org.youcode.ebanking.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.youcode.ebanking.dtos.RoleDTO;
 import org.youcode.ebanking.dtos.UserResponseDto;
 import org.youcode.ebanking.models.AppUser;
 import org.youcode.ebanking.security.SecurityConfig;
@@ -35,6 +33,18 @@ public class AdminController {
         return ResponseEntity.ok(user);
     }
 
+    @DeleteMapping("/{username}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username) {
+        userService.deleteUserByUsername(username);
+        return ResponseEntity.noContent().build();
+    }
 
+    @PutMapping("/{username}/updateRole")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponseDto> updateUserRole(@PathVariable String username, @RequestBody RoleDTO roleDTO) {
+        UserResponseDto updatedUser = userService.updateUserRole(username, roleDTO);
+        return ResponseEntity.ok(updatedUser);
+    }
 
 }
