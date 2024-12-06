@@ -3,7 +3,7 @@ package org.youcode.ebanking.dtos;
 public record UserResponseDto(
         Long id,
         String username,
-        String password,
+//        String password,
         RoleDTO role
 ) {
 }
