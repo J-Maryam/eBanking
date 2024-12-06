@@ -1,6 +1,7 @@
 package org.youcode.ebanking.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,5 +48,13 @@ public class UserServiceImpl implements UserService {
         return users.stream()
                 .map(userMapper::toDTO)
                 .toList();
+    }
+
+    @Override
+    public UserResponseDto getUserByUsername(String username, String role) {
+        AppUser user = userRepository.findByUsernameAndRole_Name(username, "ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("User with username '" + username + "' and role 'USER' not found"));
+
+        return userMapper.toDTO(user);
     }
 }

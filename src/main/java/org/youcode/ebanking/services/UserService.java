@@ -9,4 +9,5 @@ import java.util.List;
 public interface UserService {
     UserResponseDto registerUser(UserRegistrationDto dto);
     List<UserResponseDto> getAllUsers();
+    UserResponseDto getUserByUsername(String username, String roleName);
 }
