@@ -19,16 +19,16 @@ public class AdminController {
 
     private final UserService userService;
 
-    @GetMapping("")
+    @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UserResponseDto>> getUsersWithRoleUser() {
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         List<UserResponseDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{username}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserResponseDto> getUserWithUserRole(@PathVariable String username) {
+    public ResponseEntity<UserResponseDto> getUserByUserName(@PathVariable String username) {
         UserResponseDto user = userService.getUserByUsername(username, "ROLE_USER");
         return ResponseEntity.ok(user);
     }
@@ -42,7 +42,7 @@ public class AdminController {
 
     @PutMapping("/{username}/updateRole")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserResponseDto> updateUserRole(@PathVariable String username, @RequestBody RoleDTO roleDTO) {
+    public ResponseEntity<UserResponseDto> updateRoleUser(@PathVariable String username, @RequestBody RoleDTO roleDTO) {
         UserResponseDto updatedUser = userService.updateUserRole(username, roleDTO);
         return ResponseEntity.ok(updatedUser);
     }
