@@ -1,7 +1,6 @@
 package org.youcode.ebanking.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.youcode.ebanking.dtos.RoleDTO;
 import org.youcode.ebanking.dtos.UserRegistrationDto;
 import org.youcode.ebanking.dtos.UserResponseDto;
+import org.youcode.ebanking.exceptions.IncorrectPasswordException;
+import org.youcode.ebanking.exceptions.RoleNotFoundException;
 import org.youcode.ebanking.exceptions.UsernameAlreadyExistsException;
+import org.youcode.ebanking.exceptions.UsernameNotFoundException;
 import org.youcode.ebanking.mappers.UserMapper;
 import org.youcode.ebanking.models.AppUser;
 import org.youcode.ebanking.models.Role;
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getUserByUsername(String username, String role) {
         AppUser user = userRepository.findByUsernameAndRole_Name(username, "ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("User with username '" + username + "' and role 'USER' not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' and role 'USER' not found"));
 
         return userMapper.toDTO(user);
     }
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserByUsername(String username) {
         AppUser user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User with username '" + username + "' not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' not found"));
         userRepository.delete(user);
     }
 
@@ -72,7 +74,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' not found"));
 
         Role newRole = roleRepository.findByName(roleDTO.name())
-                .orElseThrow(() -> new RuntimeException("Role '" + roleDTO.name() + "' not found"));
+                .orElseThrow(() -> new RoleNotFoundException("Role '" + roleDTO.name() + "' not found"));
 
         user.setRole(newRole);
         AppUser updatedUser = userRepository.save(user);
@@ -80,4 +82,16 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDTO(updatedUser);
     }
 
+    @Override
+    public void updatePassword(String username, String oldPassword, String newPassword) {
+        AppUser user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' not found"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IncorrectPasswordException("Old password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
 }
