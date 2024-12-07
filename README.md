@@ -1,5 +1,13 @@
 
 # **eBanking REST API**
+---
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+
+---
 A secure banking application built with **Spring Security** using **Basic Authentication**.
 
 ## **Table of Contents**
@@ -17,14 +25,6 @@ A secure banking application built with **Spring Security** using **Basic Authen
 
 ## **Project Overview**
 eBanking is a RESTful API project that secures user data and provides controlled access to banking services. The API uses **Spring Security** for authentication and role-based access control, ensuring a robust and secure user experience.
-
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
-![JUnit](https://img.shields.io/badge/JUnit-25A162?style=for-the-badge&logo=junit5&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-
 ---
 
 ## **Features**
@@ -48,7 +48,6 @@ eBanking is a RESTful API project that secures user data and provides controlled
 - **Spring Security**: Authentication and authorization.
 - **REST API**: For communication between clients and servers.
 - **JPA/Hibernate**: Database interaction.
-- **H2 Database**: In-memory database for testing.
 - **PostgreSQL**: Main database.
 - **Maven**: Build automation tool.
 
@@ -58,7 +57,7 @@ eBanking is a RESTful API project that secures user data and provides controlled
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/eBanking.git
+   git clone https://github.com/J-Maryam/eBanking.git
    ```
 
 2. **Navigate to the project directory**:
@@ -75,10 +74,6 @@ eBanking is a RESTful API project that secures user data and provides controlled
    ```bash
    mvn spring-boot:run
    ```
-
-5. **Access the API**:
-    - Base URL: `http://localhost:8080/api`
-
 ---
 
 ## **Endpoints**
@@ -135,25 +130,6 @@ eBanking is a RESTful API project that secures user data and provides controlled
 
 ---
 
-## **Contributing**
-Contributions are welcome!
-1. Fork the project.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/YourFeatureName
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add a brief description of your changes"
-   ```
-4. Push the branch:
-   ```bash
-   git push origin feature/YourFeatureName
-   ```
-5. Submit a pull request.
-
----
-
 ## **License**
 This project is licensed under the MIT License.
 
@@ -161,7 +137,7 @@ This project is licensed under the MIT License.
 
 ## **Contact**
 For any queries or issues, feel free to reach out:
-- **Email**: support@youcode-ebanking.com
-- **GitHub**: [Your GitHub Profile](https://github.com/your-username)
+- **Email**: maryamjammar1509@gmail.com
+- **GitHub**: [My GitHub Profile](https://github.com/J-Maryam)
 
 ✨ **Happy Coding!**
